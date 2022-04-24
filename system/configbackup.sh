@@ -1,7 +1,6 @@
 #! /usr/bin/bash
 	
 rsync -av --delete ~/.config/ ~/computing/${HOSTNAME}/configfiles/ 
-cp -r ~/scripts/* ~/computing/scripts/
 cp ~/.xprofile ~/computing/${HOSTNAME}/home/
 cp ~/.Xresources ~/computing/${HOSTNAME}/home/
 cp ~/.bashrc ~/computing/${HOSTNAME}/home/
