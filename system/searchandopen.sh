@@ -36,7 +36,13 @@ lf -remote "send select \"$file\""
 mymime=$(xdg-mime query filetype "$file")
 
 if [[ "$mymime" = "text/"* ]]; then
-    setsid -f foot -a footws2 nvim "$file"
+	if wlrctl window focus "neovim" == true;
+    then
+        nvim --server /tmp/nvim.pipe --remote "$file" >/dev/null 2>&1
+    else
+        setsid -f foot -a neovim nvim --listen /tmp/nvim.pipe "$file" >/dev/null 2>&1
+    fi
+    #setsid -f foot -a footws2 nvim "$file"
 elif [[ "$mymime" = "audio/"* ]]; then
     setsid -f mpv --audio-display=no "$file" --quiet >/dev/null 2>&1 
 #elif  [[ "$mymime" = "inode/directory" ]]; then
