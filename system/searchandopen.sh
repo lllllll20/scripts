@@ -36,7 +36,7 @@ lf -remote "send select \"$file\""
 mymime=$(xdg-mime query filetype "$file")
 
 if [[ "$mymime" = "text/"* ]]; then
-	if wlrctl window focus "neovim" == true;
+    if wlrctl window focus "neovim" == true;
     then
         nvim --server /tmp/nvim.pipe --remote "$file" >/dev/null 2>&1
     else

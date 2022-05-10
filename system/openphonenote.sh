@@ -8,5 +8,10 @@ lf -remote "send select \"$file\""
 
 cd "${HOME}"/notes
 
-setsid -f foot nvim "$file"
+if wlrctl window focus "neovim" == true;
+then
+    nvim --server /tmp/nvim.pipe --remote "$file" >/dev/null 2>&1
+else
+    setsid -f foot -a neovim nvim --listen /tmp/nvim.pipe "$file" >/dev/null 2>&1
+fi
 swaymsg [app_id="fc"] = kill
