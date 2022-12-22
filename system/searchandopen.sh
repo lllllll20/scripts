@@ -36,13 +36,7 @@ lf -remote "send select \"$file\""
 mymime=$(xdg-mime query filetype "$file")
 
 if [[ "$mymime" = "text/"* ]]; then
-    if wlrctl window focus "neovim" == true;
-    then
-        nvim --server /tmp/nvim.pipe --remote "$file" >/dev/null 2>&1
-    else
-        setsid -f foot -a neovim nvim --listen /tmp/nvim.pipe "$file" >/dev/null 2>&1
-    fi
-    #setsid -f foot -a footws2 nvim "$file"
+        setsid -f emacsclient -c -a emacs "$file" >/dev/null 2>&1
 elif [[ "$mymime" = "audio/"* ]]; then
     setsid -f mpv --audio-display=no "$file" --quiet >/dev/null 2>&1 
 #elif  [[ "$mymime" = "inode/directory" ]]; then
@@ -50,5 +44,23 @@ elif [[ "$mymime" = "audio/"* ]]; then
 else
     echo "$file" | sed -e 's/ /\\ /g' | setsid -f xargs -r xdg-open  
 fi
+
 # swaymsg [app_id="fc"] kill
 
+# if [[ "$mymime" = "text/"* ]]; then
+#     if wlrctl window focus "neovim" == true;
+#     then
+#         nvim --server /tmp/nvim.pipe --remote "$file" >/dev/null 2>&1
+#     else
+#         setsid -f foot -a neovim nvim --listen /tmp/nvim.pipe "$file" >/dev/null 2>&1
+#     fi
+#     #setsid -f foot -a footws2 nvim "$file"
+# elif [[ "$mymime" = "audio/"* ]]; then
+#     setsid -f mpv --audio-display=no "$file" --quiet >/dev/null 2>&1 
+# #elif  [[ "$mymime" = "inode/directory" ]]; then
+# #    cat ${HOME}/computing/minimise_lf | awesome-client
+# else
+#     echo "$file" | sed -e 's/ /\\ /g' | setsid -f xargs -r xdg-open  
+# fi
+# # swaymsg [app_id="fc"] kill
+#
