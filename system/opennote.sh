@@ -8,9 +8,13 @@ lf -remote "send select \"$file\""
 
 cd "${HOME}"/notes
 
-if wlrctl window focus "neovim" == true;
-then
-    nvim --server /tmp/nvim.pipe --remote "$file" >/dev/null 2>&1
-else
-    setsid -f foot -a neovim nvim --listen /tmp/nvim.pipe "$file" >/dev/null 2>&1
-fi
+setsid -f emacsclient -c -a emacs "$file" >/dev/null 2>&1
+
+
+
+# if wlrctl window focus "neovim" == true;
+# then
+#     nvim --server /tmp/nvim.pipe --remote "$file" >/dev/null 2>&1
+# else
+#     setsid -f foot -a neovim nvim --listen /tmp/nvim.pipe "$file" >/dev/null 2>&1
+# fi

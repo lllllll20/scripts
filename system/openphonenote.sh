@@ -7,11 +7,12 @@ file=$(find "${HOME}"/phone_media/Notes -not -path '*/\.*' -type f | fzf --color
 lf -remote "send select \"$file\""
 
 cd "${HOME}"/notes
+emacsclient -c -a emacs "$file" >/dev/null 2>&1
 
-if wlrctl window focus "neovim" == true;
-then
-    nvim --server /tmp/nvim.pipe --remote "$file" >/dev/null 2>&1
-else
-    setsid -f foot -a neovim nvim --listen /tmp/nvim.pipe "$file" >/dev/null 2>&1
-fi
-swaymsg [app_id="fc"] = kill
+# if wlrctl window focus "neovim" == true;
+# then
+#     nvim --server /tmp/nvim.pipe --remote "$file" >/dev/null 2>&1
+# else
+#     setsid -f foot -a neovim nvim --listen /tmp/nvim.pipe "$file" >/dev/null 2>&1
+# fi
+# swaymsg [app_id="fc"] = kill
