@@ -36,7 +36,7 @@ lf -remote "send select \"$file\""
 mymime=$(xdg-mime query filetype "$file")
 
 if [[ "$mymime" = "text/"* ]]; then
-        setsid -f emacsclient -c -a emacs "$file" >/dev/null 2>&1
+        setsid -f emacsclient -r -a emacs "$file" >/dev/null 2>&1
 elif [[ "$mymime" = "audio/"* ]]; then
     setsid -f mpv --audio-display=no "$file" --quiet >/dev/null 2>&1 
 #elif  [[ "$mymime" = "inode/directory" ]]; then
